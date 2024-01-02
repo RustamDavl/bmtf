@@ -1,0 +1,14 @@
+ru\rstdv\bmtf\controller\CustomerController.class
+ru\rstdv\CustomerApplication.class
+ru\rstdv\bmtf\repository\CustomerRepository.class
+ru\rstdv\bmtf\dto\createupdate\CreateUpdateCustomerDto.class
+ru\rstdv\bmtf\dto\read\ReadAddressDto.class
+ru\rstdv\bmtf\entity\Address$AddressBuilder.class
+ru\rstdv\bmtf\entity\Customer$CustomerBuilder.class
+ru\rstdv\bmtf\dto\createupdate\CreateUpdateAddressDto.class
+ru\rstdv\bmtf\entity\Customer.class
+ru\rstdv\bmtf\mapper\AddressMapperImpl.class
+ru\rstdv\bmtf\dto\read\ReadCustomerDto.class
+ru\rstdv\bmtf\entity\Address.class
+ru\rstdv\bmtf\mapper\AddressMapper.class
+ru\rstdv\bmtf\service\CustomerService.class

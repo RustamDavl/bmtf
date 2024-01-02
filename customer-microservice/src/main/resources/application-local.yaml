@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/customer-microservice-db
+    password: pass
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
