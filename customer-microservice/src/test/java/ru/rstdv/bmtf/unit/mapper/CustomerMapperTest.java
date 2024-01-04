@@ -1,15 +1,8 @@
 package ru.rstdv.bmtf.unit.mapper;
 
 
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.TestPropertySource;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateCustomerDto;
 import ru.rstdv.bmtf.dto.read.ReadAddressDto;
 import ru.rstdv.bmtf.dto.read.ReadCustomerDto;

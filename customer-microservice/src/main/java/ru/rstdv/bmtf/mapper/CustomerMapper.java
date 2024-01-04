@@ -22,11 +22,14 @@ public interface CustomerMapper {
         if (originalPhone.startsWith("+7"))
             return originalPhone.replace("+7", "");
 
+        //todo replace hardcoded +7 value by value from property file
         return CountryCodeInjector.injectCountryCode().concat(originalPhone);
     }
 
     @Mapping(source = "phone", target = "phone", qualifiedByName = "modifyPhoneWithCountryCode")
     Customer toCustomer(CreateUpdateCustomerDto createUpdateCustomerDto);
 
+
     Customer updateCustomerFromDto(@MappingTarget Customer customer, CreateUpdateCustomerDto createUpdateCustomerDto);
+
 }

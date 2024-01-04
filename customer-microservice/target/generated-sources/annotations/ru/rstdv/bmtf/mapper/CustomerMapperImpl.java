@@ -12,7 +12,7 @@ import ru.rstdv.bmtf.entity.Customer;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-04T00:35:05+0300",
+    date = "2024-01-04T17:59:46+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component

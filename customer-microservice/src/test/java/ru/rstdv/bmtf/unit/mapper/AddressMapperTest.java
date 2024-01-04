@@ -2,13 +2,10 @@ package ru.rstdv.bmtf.unit.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateAddressDto;
 import ru.rstdv.bmtf.dto.read.ReadAddressDto;
 import ru.rstdv.bmtf.entity.Address;
 import ru.rstdv.bmtf.mapper.AddressMapper;
-import ru.rstdv.bmtf.util.CountryCodeInjector;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
