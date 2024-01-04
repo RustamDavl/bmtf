@@ -1,16 +1,14 @@
 package ru.rstdv.bmtf.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateCustomerDto;
 import ru.rstdv.bmtf.dto.read.ReadCustomerDto;
-import ru.rstdv.bmtf.entity.Customer;
 import ru.rstdv.bmtf.exception.CustomerNotFoundException;
 import ru.rstdv.bmtf.mapper.CustomerMapper;
 import ru.rstdv.bmtf.repository.CustomerRepository;
-
-import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +19,17 @@ public class CustomerService implements IService<ReadCustomerDto, CreateUpdateCu
 
     private final CustomerMapper customerMapperImpl;
 
+    @Value("${app.mobile.code.russia}")
+    private final String countryCode;
+
     @Override
     public ReadCustomerDto create(CreateUpdateCustomerDto createUpdateDto) {
+
+        var customerToSave = customerMapperImpl.toCustomer(createUpdateDto);
+       // customerToSave.setPhone(createUpdateDto.phone().replace(countryCode, ""));
+
         return customerMapperImpl.toReadCustomerDto(
-                customerRepository.save(customerMapperImpl.toCustomer(createUpdateDto))
+                customerRepository.save(customerToSave)
         );
     }
 
@@ -54,10 +59,12 @@ public class CustomerService implements IService<ReadCustomerDto, CreateUpdateCu
     }
 
     @Override
-    public ReadCustomerDto find(Long id) {
+    @Transactional(readOnly = true)
+    public ReadCustomerDto findById(Long id) {
         return customerRepository.findById(id)
                 .map(customerMapperImpl::toReadCustomerDto)
                 .orElseThrow(() -> new CustomerNotFoundException("there is no entity with such id : " + id));
     }
+
 
 }

@@ -2,18 +2,22 @@ package ru.rstdv.bmtf.unit.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateAddressDto;
 import ru.rstdv.bmtf.dto.read.ReadAddressDto;
 import ru.rstdv.bmtf.entity.Address;
 import ru.rstdv.bmtf.mapper.AddressMapper;
+import ru.rstdv.bmtf.util.CountryCodeInjector;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 class AddressMapperTest {
 
     private AddressMapper addressMapper;
 
-    //todo mock address mapper or something else.
     //the project is not compiled because of this module does not have annotation processor path for lombok...
 
 
@@ -61,7 +65,6 @@ class AddressMapperTest {
     @Test
     void toAddress() {
         var givenCreateUpdateAddressDto = new CreateUpdateAddressDto(
-                "1",
                 "Kazan",
                 "Ametevo",
                 "16",

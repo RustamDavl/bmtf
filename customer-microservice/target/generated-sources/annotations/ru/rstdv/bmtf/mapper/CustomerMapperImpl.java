@@ -12,7 +12,7 @@ import ru.rstdv.bmtf.entity.Customer;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-01T19:27:55+0300",
+    date = "2024-01-04T00:35:05+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -25,18 +25,20 @@ public class CustomerMapperImpl implements CustomerMapper {
         }
 
         List<ReadAddressDto> readAddressDtoList = null;
-        String id = null;
         String phone = null;
+        String id = null;
+        String firstName = null;
         String email = null;
 
         readAddressDtoList = addressListToReadAddressDtoList( customer.getAddresses() );
+        phone = modifyPhone( customer.getPhone() );
         if ( customer.getId() != null ) {
             id = String.valueOf( customer.getId() );
         }
-        phone = customer.getPhone();
+        firstName = customer.getFirstName();
         email = customer.getEmail();
 
-        ReadCustomerDto readCustomerDto = new ReadCustomerDto( id, phone, email, readAddressDtoList );
+        ReadCustomerDto readCustomerDto = new ReadCustomerDto( id, firstName, phone, email, readAddressDtoList );
 
         return readCustomerDto;
     }
@@ -49,7 +51,8 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.phone( createUpdateCustomerDto.phone() );
+        customer.phone( modifyPhone( createUpdateCustomerDto.phone() ) );
+        customer.firstName( createUpdateCustomerDto.firstName() );
         customer.email( createUpdateCustomerDto.email() );
         customer.password( createUpdateCustomerDto.password() );
 
@@ -62,6 +65,9 @@ public class CustomerMapperImpl implements CustomerMapper {
             return customer;
         }
 
+        if ( createUpdateCustomerDto.firstName() != null ) {
+            customer.setFirstName( createUpdateCustomerDto.firstName() );
+        }
         if ( createUpdateCustomerDto.phone() != null ) {
             customer.setPhone( createUpdateCustomerDto.phone() );
         }

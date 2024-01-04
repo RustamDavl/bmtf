@@ -8,5 +8,5 @@ public interface IService<R, C> {
 
     R update(Long id, C createUpdateDto);
 
-    R find(Long id);
+    R findById(Long id);
 }
