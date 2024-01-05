@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ru.rstdv.bmtf.integration.service.CustomerServiceIT
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.89 s -- in ru.rstdv.bmtf.integration.service.CustomerServiceIT

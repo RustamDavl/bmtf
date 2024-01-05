@@ -11,4 +11,4 @@ spring:
 app:
   mobile:
     code:
-      russia: '\+7'
+      russia: '+7'
