@@ -36,6 +36,7 @@ class CustomerMapperTest {
         when(CountryCodeInjector.injectCountryCode()).thenReturn("+7");
         var addresses = List.of(
                 Address.builder()
+                        .id(1L)
                         .city("Kazan")
                         .street("Ametevo")
                         .streetNumber((short) 16)
@@ -45,6 +46,7 @@ class CustomerMapperTest {
                         .build(),
 
                 Address.builder()
+                        .id(2L)
                         .city("Leninogorsk")
                         .street("Lenina")
                         .streetNumber((short) 17)
@@ -70,6 +72,7 @@ class CustomerMapperTest {
                 "test@gmail.com",
                 List.of(
                         new ReadAddressDto(
+                                "1",
                                 "Kazan",
                                 "Ametevo",
                                 "16",
@@ -77,6 +80,7 @@ class CustomerMapperTest {
                                 "5",
                                 "384"),
                         new ReadAddressDto(
+                                "2",
                                 "Leninogorsk",
                                 "Lenina",
                                 "17",
@@ -136,8 +140,7 @@ class CustomerMapperTest {
                 "Rust",
                 "88888888899",
                 "updated@gmail.com",
-                "qwerty",
-                null
+                "qwerty"
         );
 
         var updatedCustomer = customerMapper.updateCustomerFromDto(actualCustomer, customerFromRequest);
@@ -151,5 +154,4 @@ class CustomerMapperTest {
         assertThat(updatedCustomer.getAddresses().get(0)).isEqualTo(actualCustomer.getAddresses().get(0));
     }
 
-    //todo write about: mockStatick; qualifiedByName in MapStruct;
 }

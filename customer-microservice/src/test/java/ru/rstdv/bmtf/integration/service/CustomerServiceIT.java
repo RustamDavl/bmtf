@@ -4,7 +4,6 @@ package ru.rstdv.bmtf.integration.service;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.rstdv.bmtf.dto.createupdate.CreateUpdateAddressDto;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateCustomerDto;
 import ru.rstdv.bmtf.dto.read.ReadAddressDto;
 import ru.rstdv.bmtf.dto.read.ReadCustomerDto;
@@ -23,6 +22,7 @@ class CustomerServiceIT extends IntegrationTestBase {
     void findById() {
         ReadCustomerDto readCustomerDto = customerService.findById(1L);
         var readAddressDto = new ReadAddressDto(
+                "1",
                 "kazan",
                 "ametevo",
                 "16",
@@ -46,8 +46,7 @@ class CustomerServiceIT extends IntegrationTestBase {
                 "Rust",
                 "+79089887887",
                 "test@gmail.com",
-                "pass",
-                null
+                "pass"
         );
         var createdCustomer = customerService.create(requestDto);
         var actualResult = customerService.findById(Long.valueOf(createdCustomer.id()));
@@ -70,12 +69,11 @@ class CustomerServiceIT extends IntegrationTestBase {
     }
 
     @Test
-    void updateWithoutAddress() {
+    void update() {
         var requestDto = new CreateUpdateCustomerDto(
                 "Rust Davlet",
                 null,
                 "easton12345@gmail.com",
-                null,
                 null
         );
         var oldResult = customerService.findById(1L);
@@ -87,35 +85,6 @@ class CustomerServiceIT extends IntegrationTestBase {
         assertThat(updatedResult.phone()).isEqualTo(oldResult.phone());
     }
 
-    @Test
-    void updateByAddingAddress() {
-        var requestDto = new CreateUpdateCustomerDto(
-                null,
-                null,
-                null,
-                null,
-                new CreateUpdateAddressDto(
-                        "Test",
-                        "test",
-                        "0",
-                        "0",
-                        "0",
-                        "0"
-                )
-        );
-        var oldResult = customerService.findById(1L);
 
-        var updatedResult = customerService.update(1L, requestDto);
-
-        int listSize = updatedResult.readAddressDtoList().size();
-
-        assertThat(updatedResult.readAddressDtoList().size()).isEqualTo(oldResult.readAddressDtoList().size() + 1);
-        assertThat(updatedResult.readAddressDtoList().get(listSize - 1).city()).isEqualTo(requestDto.createUpdateAddressDto().city());
-        assertThat(updatedResult.readAddressDtoList().get(listSize - 1).street()).isEqualTo(requestDto.createUpdateAddressDto().street());
-        assertThat(updatedResult.readAddressDtoList().get(listSize - 1).streetNumber()).isEqualTo(requestDto.createUpdateAddressDto().streetNumber());
-        assertThat(updatedResult.readAddressDtoList().get(listSize - 1).doorwayNumber()).isEqualTo(requestDto.createUpdateAddressDto().doorwayNumber());
-        assertThat(updatedResult.readAddressDtoList().get(listSize - 1).floorNumber()).isEqualTo(requestDto.createUpdateAddressDto().floorNumber());
-        assertThat(updatedResult.readAddressDtoList().get(listSize - 1).flatNumber()).isEqualTo(requestDto.createUpdateAddressDto().flatNumber());
-    }
 
 }

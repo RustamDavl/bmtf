@@ -22,7 +22,7 @@ public interface CustomerMapper {
         if (originalPhone.startsWith("+7"))
             return originalPhone.replace("+7", "");
 
-        //todo replace hardcoded +7 value by value from property file
+        //todo replace hardcoded '+7' value by value from property file
         return CountryCodeInjector.injectCountryCode().concat(originalPhone);
     }
 

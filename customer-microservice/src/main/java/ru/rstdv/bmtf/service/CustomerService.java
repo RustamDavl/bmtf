@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateCustomerDto;
 import ru.rstdv.bmtf.dto.read.ReadCustomerDto;
-import ru.rstdv.bmtf.entity.Address;
 import ru.rstdv.bmtf.exception.CustomerNotFoundException;
-import ru.rstdv.bmtf.mapper.AddressMapper;
 import ru.rstdv.bmtf.mapper.CustomerMapper;
 import ru.rstdv.bmtf.repository.CustomerRepository;
 
@@ -20,12 +18,12 @@ public class CustomerService implements IService<ReadCustomerDto, CreateUpdateCu
 
     private final CustomerMapper customerMapperImpl;
 
-    private final AddressMapper addressMapperImpl;
 
     @Override
     public ReadCustomerDto create(CreateUpdateCustomerDto createUpdateDto) {
 
         var customerToSave = customerMapperImpl.toCustomer(createUpdateDto);
+
         return customerMapperImpl.toReadCustomerDto(
                 customerRepository.save(customerToSave)
         );
@@ -48,11 +46,6 @@ public class CustomerService implements IService<ReadCustomerDto, CreateUpdateCu
 
         var currentCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("there is no entity with such id : " + id));
-
-        if (createUpdateDto.createUpdateAddressDto() != null) {
-            Address address = addressMapperImpl.toAddress(createUpdateDto.createUpdateAddressDto());
-            currentCustomer.getAddresses().add(address);
-        }
 
         return customerMapperImpl.toReadCustomerDto(
                 customerMapperImpl.updateCustomerFromDto(currentCustomer, createUpdateDto)

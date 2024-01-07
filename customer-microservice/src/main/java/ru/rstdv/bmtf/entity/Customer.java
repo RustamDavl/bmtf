@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,11 +33,8 @@ public class Customer {
 
     @ToString.Exclude
     @Builder.Default
-    @ElementCollection
-    @CollectionTable(
-            name = "customer_address",
-            joinColumns = @JoinColumn(name = "customer_id")
-    )
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "customer_id") //uni directional
     private List<Address> addresses = new ArrayList<>();
 
     @Override

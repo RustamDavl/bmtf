@@ -8,7 +8,7 @@ import ru.rstdv.bmtf.entity.Address;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-04T18:33:41+0300",
+    date = "2024-01-07T20:37:56+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -20,6 +20,7 @@ public class AddressMapperImpl implements AddressMapper {
             return null;
         }
 
+        String id = null;
         String city = null;
         String street = null;
         String streetNumber = null;
@@ -27,6 +28,9 @@ public class AddressMapperImpl implements AddressMapper {
         String floorNumber = null;
         String flatNumber = null;
 
+        if ( address.getId() != null ) {
+            id = String.valueOf( address.getId() );
+        }
         city = address.getCity();
         street = address.getStreet();
         if ( address.getStreetNumber() != null ) {
@@ -42,7 +46,7 @@ public class AddressMapperImpl implements AddressMapper {
             flatNumber = String.valueOf( address.getFlatNumber() );
         }
 
-        ReadAddressDto readAddressDto = new ReadAddressDto( city, street, streetNumber, doorwayNumber, floorNumber, flatNumber );
+        ReadAddressDto readAddressDto = new ReadAddressDto( id, city, street, streetNumber, doorwayNumber, floorNumber, flatNumber );
 
         return readAddressDto;
     }
@@ -71,5 +75,33 @@ public class AddressMapperImpl implements AddressMapper {
         }
 
         return address.build();
+    }
+
+    @Override
+    public Address updateAddressFromDto(Address address, CreateUpdateAddressDto createUpdateAddressDto) {
+        if ( createUpdateAddressDto == null ) {
+            return address;
+        }
+
+        if ( createUpdateAddressDto.city() != null ) {
+            address.setCity( createUpdateAddressDto.city() );
+        }
+        if ( createUpdateAddressDto.street() != null ) {
+            address.setStreet( createUpdateAddressDto.street() );
+        }
+        if ( createUpdateAddressDto.streetNumber() != null ) {
+            address.setStreetNumber( Short.parseShort( createUpdateAddressDto.streetNumber() ) );
+        }
+        if ( createUpdateAddressDto.doorwayNumber() != null ) {
+            address.setDoorwayNumber( Short.parseShort( createUpdateAddressDto.doorwayNumber() ) );
+        }
+        if ( createUpdateAddressDto.floorNumber() != null ) {
+            address.setFloorNumber( Short.parseShort( createUpdateAddressDto.floorNumber() ) );
+        }
+        if ( createUpdateAddressDto.flatNumber() != null ) {
+            address.setFlatNumber( Short.parseShort( createUpdateAddressDto.flatNumber() ) );
+        }
+
+        return address;
     }
 }

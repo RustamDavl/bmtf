@@ -12,7 +12,7 @@ import ru.rstdv.bmtf.entity.Customer;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-05T17:39:54+0300",
+    date = "2024-01-07T20:37:55+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -86,6 +86,7 @@ public class CustomerMapperImpl implements CustomerMapper {
             return null;
         }
 
+        String id = null;
         String city = null;
         String street = null;
         String streetNumber = null;
@@ -93,6 +94,9 @@ public class CustomerMapperImpl implements CustomerMapper {
         String floorNumber = null;
         String flatNumber = null;
 
+        if ( address.getId() != null ) {
+            id = String.valueOf( address.getId() );
+        }
         city = address.getCity();
         street = address.getStreet();
         if ( address.getStreetNumber() != null ) {
@@ -108,7 +112,7 @@ public class CustomerMapperImpl implements CustomerMapper {
             flatNumber = String.valueOf( address.getFlatNumber() );
         }
 
-        ReadAddressDto readAddressDto = new ReadAddressDto( city, street, streetNumber, doorwayNumber, floorNumber, flatNumber );
+        ReadAddressDto readAddressDto = new ReadAddressDto( id, city, street, streetNumber, doorwayNumber, floorNumber, flatNumber );
 
         return readAddressDto;
     }
