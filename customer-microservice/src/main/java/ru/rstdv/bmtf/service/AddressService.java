@@ -29,7 +29,7 @@ public class AddressService {
         customer.getAddresses().add(addressMapperImpl.toAddress(createUpdateDto));
 
         var savedCustomer = customerRepository.saveAndFlush(customer);
-        var listSize = getListSize(savedCustomer);
+        var listSize = getAddressesSize(savedCustomer);
 
         return addressMapperImpl.toReadAddressDto(savedCustomer.getAddresses().get(listSize - 1));
 
@@ -54,7 +54,7 @@ public class AddressService {
 
         var updatedAddress = addressMapperImpl.updateAddressFromDto(actualAddress, createUpdateDto);
 
-        var listSize = getListSize(customer);
+        var listSize = getAddressesSize(customer);
         if (listSize == 0) {
             customer.getAddresses().set(0, updatedAddress);
         } else {
@@ -64,7 +64,7 @@ public class AddressService {
         var actualCustomer = customerRepository.saveAndFlush(customer);
 
         return addressMapperImpl.toReadAddressDto(
-                actualCustomer.getAddresses().get(getListSize(actualCustomer) - 1)
+                actualCustomer.getAddresses().get(getAddressesSize(actualCustomer) - 1)
         );
     }
 
@@ -81,7 +81,7 @@ public class AddressService {
                 .orElseThrow(() -> new CustomerNotFoundException("there is no entity with such customerId : " + id));
     }
 
-    private int getListSize(Customer customer) {
+    private int getAddressesSize(Customer customer) {
         return customer.getAddresses().size();
     }
 

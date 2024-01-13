@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  customer-microservice-db:
+    image: postgres:16.0
+    container_name: restaurant-microservice-db-container
+    environment:
+      POSTGRES_DB: restaurant-microservice-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    restart: always
+    volumes:
+      - restaurant-microservice-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  restaurant-microservice-db-volume:

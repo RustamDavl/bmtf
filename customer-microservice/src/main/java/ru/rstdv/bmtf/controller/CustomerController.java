@@ -12,6 +12,9 @@ import ru.rstdv.bmtf.service.CustomerService;
 import ru.rstdv.bmtf.validation.group.OnCreateAction;
 import ru.rstdv.bmtf.validation.group.OnUpdateAction;
 
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -27,7 +30,7 @@ public class CustomerController {
         var readCustomerDto = customerService.create(createUpdateCustomerDto);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .body(readCustomerDto);
 
     }
@@ -37,8 +40,8 @@ public class CustomerController {
 
         var readCustomerDto = customerService.findById(id);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
+        return ResponseEntity.status(OK)
+                .contentType(APPLICATION_JSON)
                 .body(readCustomerDto);
     }
 
@@ -50,8 +53,8 @@ public class CustomerController {
 
         var readCustomerDto = customerService.update(id, createUpdateCustomerDto);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
+        return ResponseEntity.status(OK)
+                .contentType(APPLICATION_JSON)
                 .body(readCustomerDto);
     }
 
@@ -60,8 +63,8 @@ public class CustomerController {
 
         var result = customerService.delete(id);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
+        return ResponseEntity.status(OK)
+                .contentType(APPLICATION_JSON)
                 .body(result);
     }
 
