@@ -60,23 +60,15 @@ create table contact
 );
 
 --changeset rudv:6
-create table menu
+create table menu_category
 (
-    id            bigserial primary key,
-    restaurant_id bigint not null unique references restaurant (id) on delete cascade
+    id      bigserial primary key,
+    name    varchar(64) not null unique,
+    restaurant_id bigint      not null references menu (id) on delete cascade
 
 );
 
 --changeset rudv:7
-create table category
-(
-    id      bigserial primary key,
-    name    varchar(64) not null unique,
-    menu_id bigint      not null references menu (id) on delete cascade
-
-);
-
---changeset rudv:8
 create table position
 (
     id          bigserial primary key,

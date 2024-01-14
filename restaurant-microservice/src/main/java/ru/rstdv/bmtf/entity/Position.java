@@ -18,13 +18,13 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private byte[] bytes;
+    private byte[] photo;
     private String description;
     private Short weight;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private MenuCategory category;
 
     @Override
     public boolean equals(Object o) {

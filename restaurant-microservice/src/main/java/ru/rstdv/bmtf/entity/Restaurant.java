@@ -44,8 +44,10 @@ public class Restaurant {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToOne(mappedBy = "restaurant")
-    private Menu menu;
+    @OneToMany(mappedBy = "menu")
+    @Builder.Default
+    @ToString.Exclude
+    private List<MenuCategory> categories = new ArrayList<>();
 
     @OneToOne(mappedBy = "restaurant")
     private Contact contact;
