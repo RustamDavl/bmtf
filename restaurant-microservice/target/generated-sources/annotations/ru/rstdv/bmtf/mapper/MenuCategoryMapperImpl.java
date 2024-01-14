@@ -10,7 +10,7 @@ import ru.rstdv.bmtf.entity.MenuCategory;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-14T21:17:26+0300",
+    date = "2024-01-14T22:07:32+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component

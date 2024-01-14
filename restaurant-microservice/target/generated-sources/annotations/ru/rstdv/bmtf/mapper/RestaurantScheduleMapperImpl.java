@@ -11,7 +11,7 @@ import ru.rstdv.bmtf.entity.embeddable.WorkingHours;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-14T21:17:26+0300",
+    date = "2024-01-14T22:07:38+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -24,6 +24,9 @@ public class RestaurantScheduleMapperImpl implements RestaurantScheduleMapper {
         }
 
         RestaurantSchedule.RestaurantScheduleBuilder restaurantSchedule = RestaurantSchedule.builder();
+
+        restaurantSchedule.weekDays( createUpdateRestaurantScheduleDtoToWeekDays( createUpdateRestaurantScheduleDto ) );
+        restaurantSchedule.workingHours( createUpdateRestaurantScheduleDtoToWorkingHours( createUpdateRestaurantScheduleDto ) );
 
         return restaurantSchedule.build();
     }
@@ -82,6 +85,37 @@ public class RestaurantScheduleMapperImpl implements RestaurantScheduleMapper {
         ReadRestaurantSchedule readRestaurantSchedule = new ReadRestaurantSchedule( id, mon, tue, wed, thur, fri, sat, sun, start, end );
 
         return readRestaurantSchedule;
+    }
+
+    protected WeekDays createUpdateRestaurantScheduleDtoToWeekDays(CreateUpdateRestaurantScheduleDto createUpdateRestaurantScheduleDto) {
+        if ( createUpdateRestaurantScheduleDto == null ) {
+            return null;
+        }
+
+        WeekDays.WeekDaysBuilder weekDays = WeekDays.builder();
+
+        weekDays.mon( createUpdateRestaurantScheduleDto.mon() );
+        weekDays.tue( createUpdateRestaurantScheduleDto.tue() );
+        weekDays.wed( createUpdateRestaurantScheduleDto.wed() );
+        weekDays.thur( createUpdateRestaurantScheduleDto.thur() );
+        weekDays.fri( createUpdateRestaurantScheduleDto.fri() );
+        weekDays.sat( createUpdateRestaurantScheduleDto.sat() );
+        weekDays.sun( createUpdateRestaurantScheduleDto.sun() );
+
+        return weekDays.build();
+    }
+
+    protected WorkingHours createUpdateRestaurantScheduleDtoToWorkingHours(CreateUpdateRestaurantScheduleDto createUpdateRestaurantScheduleDto) {
+        if ( createUpdateRestaurantScheduleDto == null ) {
+            return null;
+        }
+
+        WorkingHours.WorkingHoursBuilder workingHours = WorkingHours.builder();
+
+        workingHours.start( createUpdateRestaurantScheduleDto.beginTime() );
+        workingHours.end( createUpdateRestaurantScheduleDto.endTime() );
+
+        return workingHours.build();
     }
 
     private Boolean restaurantScheduleWeekDaysMon(RestaurantSchedule restaurantSchedule) {

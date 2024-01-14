@@ -1,15 +1,18 @@
 package ru.rstdv.bmtf.dto.createupdate;
 
+import java.time.LocalTime;
+
 public record CreateUpdateRestaurantScheduleDto(
         boolean mon,
         boolean tue,
         boolean wed,
         boolean thur,
         boolean fri,
+        boolean sat,
         boolean sun,
 
-        String beginTime,
+        LocalTime beginTime,
 
-        String endTime
+        LocalTime endTime
 ) {
 }
