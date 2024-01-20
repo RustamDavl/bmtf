@@ -2,7 +2,6 @@ package ru.rstdv.bmtf.mapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ import ru.rstdv.bmtf.entity.embeddable.PaymentMethod;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T21:28:13+0300",
+    date = "2024-01-20T22:05:50+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -35,6 +34,10 @@ public class RestaurantMapperImpl implements RestaurantMapper {
 
     @Autowired
     private RestaurantScheduleMapperImpl restaurantScheduleMapperImpl;
+    @Autowired
+    private OwnerMapperImpl ownerMapperImpl;
+    @Autowired
+    private MenuCategoryMapperImpl menuCategoryMapperImpl;
 
     @Override
     public Restaurant toRestaurant(CreateUpdateRestaurantDto createUpdateRestaurantDto) {
@@ -75,24 +78,27 @@ public class RestaurantMapperImpl implements RestaurantMapper {
             return null;
         }
 
+        List<ReadRestaurantScheduleDto> restaurantSchedules = null;
+        ReadAddressDto readAddressDto = null;
+        ReadOwnerDto readOwnerDto = null;
+        List<ReadMenuCategoryDto> readMenuCategoryDtos = null;
+        ReadContactDto readContactDto = null;
         String id = null;
         String email = null;
-        byte[] titlePhoto = null;
         String name = null;
-        List<ReadRestaurantScheduleDto> restaurantSchedules = null;
         String paymentMethod = null;
         String status = null;
 
+        restaurantSchedules = restaurantScheduleListToReadRestaurantScheduleDtoList( restaurant.getRestaurantSchedules() );
+        readAddressDto = addressToReadAddressDto( restaurant.getAddress() );
+        readOwnerDto = ownerMapperImpl.toReadOwnerDto( restaurant.getOwner() );
+        readMenuCategoryDtos = menuCategoryListToReadMenuCategoryDtoList( restaurant.getCategories() );
+        readContactDto = contactToReadContactDto( restaurant.getContact() );
         if ( restaurant.getId() != null ) {
             id = String.valueOf( restaurant.getId() );
         }
         email = restaurant.getEmail();
-        byte[] titlePhoto1 = restaurant.getTitlePhoto();
-        if ( titlePhoto1 != null ) {
-            titlePhoto = Arrays.copyOf( titlePhoto1, titlePhoto1.length );
-        }
         name = restaurant.getName();
-        restaurantSchedules = restaurantScheduleListToReadRestaurantScheduleDtoList( restaurant.getRestaurantSchedules() );
         if ( restaurant.getPaymentMethod() != null ) {
             paymentMethod = restaurant.getPaymentMethod().name();
         }
@@ -100,12 +106,7 @@ public class RestaurantMapperImpl implements RestaurantMapper {
             status = restaurant.getStatus().name();
         }
 
-        ReadAddressDto readAddressDto = null;
-        ReadOwnerDto readOwnerDto = null;
-        List<ReadMenuCategoryDto> readMenuCategoryDtos = null;
-        ReadContactDto readContactDto = null;
-
-        ReadRestaurantDto readRestaurantDto = new ReadRestaurantDto( id, email, titlePhoto, name, restaurantSchedules, readAddressDto, paymentMethod, readOwnerDto, readMenuCategoryDtos, readContactDto, status );
+        ReadRestaurantDto readRestaurantDto = new ReadRestaurantDto( id, email, name, restaurantSchedules, readAddressDto, paymentMethod, readOwnerDto, readMenuCategoryDtos, readContactDto, status );
 
         return readRestaurantDto;
     }
@@ -137,18 +138,6 @@ public class RestaurantMapperImpl implements RestaurantMapper {
         return address.build();
     }
 
-    protected MenuCategory createUpdateMenuCategoryDtoToMenuCategory(CreateUpdateMenuCategoryDto createUpdateMenuCategoryDto) {
-        if ( createUpdateMenuCategoryDto == null ) {
-            return null;
-        }
-
-        MenuCategory.MenuCategoryBuilder menuCategory = MenuCategory.builder();
-
-        menuCategory.name( createUpdateMenuCategoryDto.name() );
-
-        return menuCategory.build();
-    }
-
     protected List<MenuCategory> createUpdateMenuCategoryDtoListToMenuCategoryList(List<CreateUpdateMenuCategoryDto> list) {
         if ( list == null ) {
             return null;
@@ -156,7 +145,7 @@ public class RestaurantMapperImpl implements RestaurantMapper {
 
         List<MenuCategory> list1 = new ArrayList<MenuCategory>( list.size() );
         for ( CreateUpdateMenuCategoryDto createUpdateMenuCategoryDto : list ) {
-            list1.add( createUpdateMenuCategoryDtoToMenuCategory( createUpdateMenuCategoryDto ) );
+            list1.add( menuCategoryMapperImpl.toMenuCategory( createUpdateMenuCategoryDto ) );
         }
 
         return list1;
@@ -187,5 +176,62 @@ public class RestaurantMapperImpl implements RestaurantMapper {
         }
 
         return list1;
+    }
+
+    protected ReadAddressDto addressToReadAddressDto(Address address) {
+        if ( address == null ) {
+            return null;
+        }
+
+        String id = null;
+        String city = null;
+        String street = null;
+        String houseNumber = null;
+
+        if ( address.getId() != null ) {
+            id = String.valueOf( address.getId() );
+        }
+        city = address.getCity();
+        street = address.getStreet();
+        houseNumber = address.getHouseNumber();
+
+        ReadAddressDto readAddressDto = new ReadAddressDto( id, city, street, houseNumber );
+
+        return readAddressDto;
+    }
+
+    protected List<ReadMenuCategoryDto> menuCategoryListToReadMenuCategoryDtoList(List<MenuCategory> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<ReadMenuCategoryDto> list1 = new ArrayList<ReadMenuCategoryDto>( list.size() );
+        for ( MenuCategory menuCategory : list ) {
+            list1.add( menuCategoryMapperImpl.toReadMenuCategoryDto( menuCategory ) );
+        }
+
+        return list1;
+    }
+
+    protected ReadContactDto contactToReadContactDto(Contact contact) {
+        if ( contact == null ) {
+            return null;
+        }
+
+        String id = null;
+        String bossPhone = null;
+        String commonPhone = null;
+        String additionalPhone = null;
+
+        if ( contact.getId() != null ) {
+            id = String.valueOf( contact.getId() );
+        }
+        bossPhone = contact.getBossPhone();
+        commonPhone = contact.getCommonPhone();
+        additionalPhone = contact.getAdditionalPhone();
+
+        ReadContactDto readContactDto = new ReadContactDto( id, bossPhone, commonPhone, additionalPhone );
+
+        return readContactDto;
     }
 }

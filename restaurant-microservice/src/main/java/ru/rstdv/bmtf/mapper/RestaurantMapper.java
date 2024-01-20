@@ -11,9 +11,14 @@ import ru.rstdv.bmtf.entity.Restaurant;
 import java.io.IOException;
 
 
-@Mapper(componentModel = "spring", //injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+@Mapper(componentModel = "spring",//injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        uses = RestaurantScheduleMapperImpl.class)
+        uses = {
+                RestaurantScheduleMapperImpl.class,
+                OwnerMapperImpl.class,
+                MenuCategoryMapperImpl.class
+        }
+)
 public interface RestaurantMapper {
 
     @Mapping(source = "titlePhoto", target = "titlePhoto", qualifiedByName = "getBytes")
@@ -37,5 +42,10 @@ public interface RestaurantMapper {
                 .build();
     }
 
+    @Mapping(source = "restaurantSchedules", target = "restaurantSchedules")
+    @Mapping(source = "address", target = "readAddressDto")
+    @Mapping(source = "owner", target = "readOwnerDto")
+    @Mapping(source = "categories", target = "readMenuCategoryDtos")
+    @Mapping(source = "contact", target = "readContactDto")
     ReadRestaurantDto toReadRestaurantDto(Restaurant restaurant);
 }

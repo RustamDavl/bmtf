@@ -38,6 +38,7 @@ public class OwnerServiceImpl implements OwnerService<ReadOwnerDto, CreateUpdate
         return false;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ReadOwnerDto findById(Long id) {
         return null;

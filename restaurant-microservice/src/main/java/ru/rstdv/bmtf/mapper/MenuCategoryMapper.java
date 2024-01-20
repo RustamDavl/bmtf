@@ -11,7 +11,7 @@ import ru.rstdv.bmtf.entity.MenuCategory;
 @Mapper(
         componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-uses = PositionMapper.class)
+        uses = PositionMapper.class)
 public interface MenuCategoryMapper {
 
 
