@@ -3,25 +3,26 @@ package ru.rstdv.bmtf.unit.mapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdatePositionDto;
 import ru.rstdv.bmtf.dto.read.ReadPositionDto;
 import ru.rstdv.bmtf.entity.Position;
 import ru.rstdv.bmtf.mapper.PositionMapper;
+import ru.rstdv.bmtf.mapper.PositionMapperImpl;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest(classes = PositionMapperImpl.class)
 public class PositionMapperTest {
 
+    @Autowired
     private PositionMapper positionMapper;
 
-    @BeforeEach
-    void setUp() {
-        positionMapper = PositionMapper.INSTANCE;
-    }
 
     @Test
     void toPosition() throws IOException {

@@ -4,7 +4,6 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.factory.Mappers;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateMenuCategoryDto;
 import ru.rstdv.bmtf.dto.read.ReadMenuCategoryDto;
 import ru.rstdv.bmtf.entity.MenuCategory;
@@ -15,7 +14,6 @@ import ru.rstdv.bmtf.entity.MenuCategory;
 uses = PositionMapper.class)
 public interface MenuCategoryMapper {
 
-    MenuCategoryMapper INSTANCE = Mappers.getMapper(MenuCategoryMapper.class);
 
     @Mapping(source = "createUpdatePositionDto", target = "positions")
     MenuCategory toMenuCategory(CreateUpdateMenuCategoryDto createUpdateMenuCategoryDto);

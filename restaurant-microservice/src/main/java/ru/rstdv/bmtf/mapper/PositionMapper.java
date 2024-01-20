@@ -13,8 +13,6 @@ import java.io.IOException;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PositionMapper {
 
-    PositionMapper INSTANCE = Mappers.getMapper(PositionMapper.class);
-
     @Mapping(source = "photo", target = "photo", qualifiedByName = "getPhotoBytes")
     Position toPosition(CreateUpdatePositionDto createUpdatePositionDto);
 
