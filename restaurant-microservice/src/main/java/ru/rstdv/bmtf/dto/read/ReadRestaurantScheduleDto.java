@@ -2,7 +2,7 @@ package ru.rstdv.bmtf.dto.read;
 
 import java.time.LocalTime;
 
-public record ReadRestaurantSchedule(
+public record ReadRestaurantScheduleDto(
         String id,
         boolean mon,
         boolean tue,

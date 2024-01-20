@@ -1,12 +1,16 @@
 package ru.rstdv.bmtf.dto.createupdate;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 public record CreateUpdateRestaurantDto(
         String email,
-        byte[] titlePhoto,
+        MultipartFile titlePhoto,
 
         String name,
 
-        CreateUpdateRestaurantScheduleDto createUpdateRestaurantScheduleDto,
+        List<CreateUpdateRestaurantScheduleDto> createUpdateRestaurantScheduleDtos,
 
         CreateUpdateAddressDto createUpdateAddressDto,
 
@@ -14,7 +18,7 @@ public record CreateUpdateRestaurantDto(
 
         String ownerId,
 
-        CreateUpdateMenuCategoryDto createUpdateMenuCategoryDto,
+        List<CreateUpdateMenuCategoryDto> createUpdateMenuCategoryDtos,
 
         CreateUpdateContactDto createUpdateContactDto
 ) {

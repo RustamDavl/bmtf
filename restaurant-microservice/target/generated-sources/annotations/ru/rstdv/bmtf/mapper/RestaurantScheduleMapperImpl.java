@@ -4,14 +4,14 @@ import java.time.LocalTime;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateRestaurantScheduleDto;
-import ru.rstdv.bmtf.dto.read.ReadRestaurantSchedule;
+import ru.rstdv.bmtf.dto.read.ReadRestaurantScheduleDto;
 import ru.rstdv.bmtf.entity.RestaurantSchedule;
 import ru.rstdv.bmtf.entity.embeddable.WeekDays;
 import ru.rstdv.bmtf.entity.embeddable.WorkingHours;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-14T22:07:38+0300",
+    date = "2024-01-20T20:25:50+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -32,7 +32,7 @@ public class RestaurantScheduleMapperImpl implements RestaurantScheduleMapper {
     }
 
     @Override
-    public ReadRestaurantSchedule toReadRestaurantSchedule(RestaurantSchedule restaurantSchedule) {
+    public ReadRestaurantScheduleDto toReadRestaurantScheduleDto(RestaurantSchedule restaurantSchedule) {
         if ( restaurantSchedule == null ) {
             return null;
         }
@@ -82,9 +82,9 @@ public class RestaurantScheduleMapperImpl implements RestaurantScheduleMapper {
             id = String.valueOf( restaurantSchedule.getId() );
         }
 
-        ReadRestaurantSchedule readRestaurantSchedule = new ReadRestaurantSchedule( id, mon, tue, wed, thur, fri, sat, sun, start, end );
+        ReadRestaurantScheduleDto readRestaurantScheduleDto = new ReadRestaurantScheduleDto( id, mon, tue, wed, thur, fri, sat, sun, start, end );
 
-        return readRestaurantSchedule;
+        return readRestaurantScheduleDto;
     }
 
     protected WeekDays createUpdateRestaurantScheduleDtoToWeekDays(CreateUpdateRestaurantScheduleDto createUpdateRestaurantScheduleDto) {

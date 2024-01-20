@@ -6,10 +6,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateRestaurantScheduleDto;
-import ru.rstdv.bmtf.dto.read.ReadRestaurantSchedule;
+import ru.rstdv.bmtf.dto.read.ReadRestaurantScheduleDto;
 import ru.rstdv.bmtf.entity.RestaurantSchedule;
-import ru.rstdv.bmtf.entity.embeddable.WeekDays;
-import ru.rstdv.bmtf.entity.embeddable.WorkingHours;
+
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -38,5 +37,5 @@ public interface RestaurantScheduleMapper {
     @Mapping(target = "sun", source = "weekDays.sun")
     @Mapping(target = "start", source = "workingHours.start")
     @Mapping(target = "end", source = "workingHours.end")
-    ReadRestaurantSchedule toReadRestaurantSchedule(RestaurantSchedule restaurantSchedule);
+    ReadRestaurantScheduleDto toReadRestaurantScheduleDto(RestaurantSchedule restaurantSchedule);
 }

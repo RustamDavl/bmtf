@@ -9,7 +9,7 @@ import ru.rstdv.bmtf.entity.Position;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-14T22:07:32+0300",
+    date = "2024-01-20T20:25:50+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -24,7 +24,7 @@ public class PositionMapperImpl implements PositionMapper {
         Position.PositionBuilder position = Position.builder();
 
         try {
-            position.photo( getBytes( createUpdatePositionDto.photo() ) );
+            position.photo( getPhotoBytes( createUpdatePositionDto.photo() ) );
         }
         catch ( IOException e ) {
             throw new RuntimeException( e );

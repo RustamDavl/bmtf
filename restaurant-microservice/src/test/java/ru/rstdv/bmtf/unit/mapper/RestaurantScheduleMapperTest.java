@@ -4,7 +4,7 @@ package ru.rstdv.bmtf.unit.mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateRestaurantScheduleDto;
-import ru.rstdv.bmtf.dto.read.ReadRestaurantSchedule;
+import ru.rstdv.bmtf.dto.read.ReadRestaurantScheduleDto;
 import ru.rstdv.bmtf.entity.RestaurantSchedule;
 import ru.rstdv.bmtf.entity.embeddable.WeekDays;
 import ru.rstdv.bmtf.entity.embeddable.WorkingHours;
@@ -79,7 +79,7 @@ public class RestaurantScheduleMapperTest {
                 )
                 .build();
 
-        var expectedResult = new ReadRestaurantSchedule(
+        var expectedResult = new ReadRestaurantScheduleDto(
                 "1",
                 true,
                 true,
@@ -94,7 +94,7 @@ public class RestaurantScheduleMapperTest {
 
         );
 
-        var actualResult = restaurantScheduleMapper.toReadRestaurantSchedule(restaurantSchedule);
+        var actualResult = restaurantScheduleMapper.toReadRestaurantScheduleDto(restaurantSchedule);
 
         assertThat(actualResult.mon()).isEqualTo(expectedResult.mon());
         assertThat(actualResult.tue()).isEqualTo(expectedResult.tue());

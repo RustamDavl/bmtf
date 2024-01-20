@@ -15,11 +15,11 @@ public interface PositionMapper {
 
     PositionMapper INSTANCE = Mappers.getMapper(PositionMapper.class);
 
-    @Mapping(source = "photo", target = "photo", qualifiedByName = "getBytes")
+    @Mapping(source = "photo", target = "photo", qualifiedByName = "getPhotoBytes")
     Position toPosition(CreateUpdatePositionDto createUpdatePositionDto);
 
-    @Named("getBytes")
-    default byte[] getBytes(MultipartFile multipartFile) throws IOException {
+    @Named("getPhotoBytes")
+    default byte[] getPhotoBytes(MultipartFile multipartFile) throws IOException {
         return multipartFile.getBytes();
     }
 

@@ -17,6 +17,7 @@ C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\j
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\read\ReadPositionDto.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\createupdate\CreateUpdateOwnerDto.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\createupdate\CreateUpdateMenuCategoryDto.java
+C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\read\ReadRestaurantScheduleDto.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\entity\Owner.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\service\OwnerServiceImpl.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\read\ReadAddressDto.java
@@ -30,7 +31,6 @@ C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\j
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\entity\embeddable\WeekDays.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\createupdate\CreateUpdateAddressDto.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\mapper\AddressMapper.java
-C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\dto\read\ReadRestaurantSchedule.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\entity\Contact.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\entity\Restaurant.java
 C:\Users\Rustam\IdeaProjects\BringMeToTheFood\restaurant-microservice\src\main\java\ru\rstdv\bmtf\repository\OwnerRepository.java

@@ -69,5 +69,6 @@ public class PositionMapperTest {
         assertThat(actualPosition.name()).isEqualTo(expectedResult.name());
         assertThat(actualPosition.description()).isEqualTo(expectedResult.description());
         assertThat(actualPosition.weight()).isEqualTo(expectedResult.weight());
+        System.out.println(actualPosition);
     }
 }

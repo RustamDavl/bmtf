@@ -15,6 +15,7 @@ ru\rstdv\bmtf\entity\Restaurant$RestaurantBuilder.class
 ru\rstdv\bmtf\repository\RestaurantRepository.class
 ru\rstdv\bmtf\entity\Owner$OwnerBuilder.class
 ru\rstdv\bmtf\repository\OwnerRepository.class
+ru\rstdv\bmtf\dto\read\ReadRestaurantScheduleDto.class
 ru\rstdv\bmtf\mapper\RestaurantScheduleMapperImpl.class
 ru\rstdv\bmtf\entity\Review$ReviewBuilder.class
 ru\rstdv\bmtf\dto\createupdate\CreateUpdateOwnerDto.class
@@ -27,7 +28,6 @@ ru\rstdv\bmtf\dto\read\ReadMenuCategoryDto.class
 ru\rstdv\bmtf\entity\embeddable\WeekDays.class
 ru\rstdv\bmtf\mapper\RestaurantMapper.class
 ru\rstdv\bmtf\entity\Owner.class
-ru\rstdv\bmtf\dto\read\ReadRestaurantSchedule.class
 ru\rstdv\bmtf\dto\createupdate\CreateUpdatePositionDto.class
 ru\rstdv\bmtf\entity\Position.class
 ru\rstdv\bmtf\entity\MenuCategory.class

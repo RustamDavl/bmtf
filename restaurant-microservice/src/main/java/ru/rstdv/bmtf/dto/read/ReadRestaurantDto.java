@@ -11,7 +11,7 @@ public record ReadRestaurantDto(
 
         String name,
 
-        List<ReadRestaurantSchedule> restaurantSchedules,
+        List<ReadRestaurantScheduleDto> restaurantSchedules,
 
         ReadAddressDto readAddressDto,
 

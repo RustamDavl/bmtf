@@ -34,6 +34,11 @@ public class MenuCategory {
     @Builder.Default
     private List<Position> positions = new ArrayList<>();
 
+    public void addPosition(Position position) {
+        this.positions.add(position);
+        position.setCategory(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

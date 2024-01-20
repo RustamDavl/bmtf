@@ -11,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Contact {
 
     @Id
