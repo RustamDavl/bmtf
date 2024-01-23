@@ -5,12 +5,14 @@ ru\rstdv\bmtf\mapper\PositionMapperImpl.class
 ru\rstdv\bmtf\entity\embeddable\WorkingHours$WorkingHoursBuilder.class
 ru\rstdv\bmtf\mapper\PositionMapper.class
 ru\rstdv\bmtf\service\OwnerService.class
+ru\rstdv\bmtf\service\RestaurantServiceImpl.class
 ru\rstdv\bmtf\mapper\OwnerMapper.class
 ru\rstdv\bmtf\dto\read\ReadPositionDto.class
 ru\rstdv\bmtf\service\OwnerServiceImpl.class
 ru\rstdv\bmtf\entity\embeddable\MenuCategory.class
 ru\rstdv\bmtf\mapper\ContactMapperImpl.class
 ru\rstdv\bmtf\mapper\RestaurantMapperImpl.class
+ru\rstdv\bmtf\service\RestaurantService.class
 ru\rstdv\bmtf\entity\Restaurant$RestaurantBuilder.class
 ru\rstdv\bmtf\repository\RestaurantRepository.class
 ru\rstdv\bmtf\entity\Owner$OwnerBuilder.class

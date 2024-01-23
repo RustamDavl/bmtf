@@ -22,10 +22,7 @@ import java.util.List;
         RestaurantMapperImpl.class,
         AddressMapperImpl.class,
         ContactMapperImpl.class,
-        MenuCategoryMapperImpl.class,
         OwnerMapperImpl.class,
-        PositionMapperImpl.class,
-        RestaurantScheduleMapperImpl.class
 })
 public class RestaurantMapperTest {
 
@@ -39,17 +36,6 @@ public class RestaurantMapperTest {
                 "test@gmail.com",
                 new MockMultipartFile("image name", new byte[0]),
                 "test",
-                List.of(new CreateUpdateRestaurantScheduleDto(
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        LocalTime.of(8, 0),
-                        LocalTime.of(23, 0)
-                )),
                 new CreateUpdateAddressDto(
                         "Kazan",
                         "Ametevo",
@@ -57,15 +43,6 @@ public class RestaurantMapperTest {
                 ),
                 "CARD",
                 "1",
-                List.of(new CreateUpdateMenuCategoryDto(
-                        "hot",
-                        List.of(new CreateUpdatePositionDto(
-                                "soup",
-                                new MockMultipartFile("test", new byte[]{1, 42, 53, 24}),
-                                "chilly soup",
-                                "1000"
-                        ))
-                )),
                 new CreateUpdateContactDto(
                         "89179209061",
                         "89179209061",
@@ -132,7 +109,7 @@ public class RestaurantMapperTest {
                         Address.builder()
                                 .city("Kazan")
                                 .street("Ametevo")
-                                .houseNumber("16")
+                                .houseNumber(Short.valueOf("16"))
                                 .build())
                 .paymentMethod(PaymentMethod.CASH_CARD)
                 .owner(

@@ -11,38 +11,36 @@ import ru.rstdv.bmtf.entity.Restaurant;
 import java.io.IOException;
 
 
-@Mapper(componentModel = "spring",//injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+@Mapper(componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         uses = {
-                RestaurantScheduleMapperImpl.class,
-                OwnerMapperImpl.class,
-                MenuCategoryMapperImpl.class
+
+                OwnerMapper.class
         }
 )
 public interface RestaurantMapper {
 
     @Mapping(source = "titlePhoto", target = "titlePhoto", qualifiedByName = "getBytes")
-    @Mapping(source = "createUpdateRestaurantScheduleDtos", target = "restaurantSchedules")
     @Mapping(source = "createUpdateAddressDto", target = "address")
-    @Mapping(source = "ownerId", target = "owner", qualifiedByName = "ownerWithId")
-    @Mapping(source = "createUpdateMenuCategoryDtos", target = "categories")
+    @Mapping(source = "ownerId", target = "owner", qualifiedByName = "createOwner")
     @Mapping(source = "createUpdateContactDto", target = "contact")
+    @Mapping(target = "status", constant = "UNCONFIRMED")
     Restaurant toRestaurant(CreateUpdateRestaurantDto createUpdateRestaurantDto);
-
 
     @Named("getBytes")
     default byte[] getBytes(MultipartFile multipartFile) throws IOException {
+        if (multipartFile == null)
+            return new byte[]{};
         return multipartFile.getBytes();
     }
 
-    @Named("ownerWithId")
-    default Owner ownerWithId(String ownerId) throws IOException {
+    @Named("createOwner")
+    default Owner createOwner(String ownerId) throws IOException {
         return Owner.builder()
                 .id(Long.valueOf(ownerId))
                 .build();
     }
 
-    @Mapping(source = "restaurantSchedules", target = "restaurantSchedules")
     @Mapping(source = "address", target = "readAddressDto")
     @Mapping(source = "owner", target = "readOwnerDto")
     @Mapping(source = "categories", target = "readMenuCategoryDtos")

@@ -30,7 +30,8 @@ public class PositionMapperTest {
                 "soup",
                 new MockMultipartFile("test", new byte[]{1, 42, 53, 24}),
                 "chilly soup",
-                "1000"
+                "1000",
+                "1"
         );
 
         var expectedResult = Position.builder()

@@ -1,24 +1,23 @@
 package ru.rstdv.bmtf.dto.createupdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+/**
+ * class represents only common info about restaurant
+ */
 
+@JsonIgnoreProperties({"titlePhoto"})
 public record CreateUpdateRestaurantDto(
         String email,
         MultipartFile titlePhoto,
 
         String name,
-
-        List<CreateUpdateRestaurantScheduleDto> createUpdateRestaurantScheduleDtos,
-
         CreateUpdateAddressDto createUpdateAddressDto,
 
         String paymentMethod,
 
         String ownerId,
-
-        List<CreateUpdateMenuCategoryDto> createUpdateMenuCategoryDtos,
 
         CreateUpdateContactDto createUpdateContactDto
 ) {

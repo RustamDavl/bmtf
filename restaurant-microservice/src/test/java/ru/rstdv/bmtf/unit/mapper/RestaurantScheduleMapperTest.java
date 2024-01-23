@@ -1,7 +1,7 @@
 package ru.rstdv.bmtf.unit.mapper;
 
 
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +10,7 @@ import ru.rstdv.bmtf.dto.read.ReadRestaurantScheduleDto;
 import ru.rstdv.bmtf.entity.RestaurantSchedule;
 import ru.rstdv.bmtf.entity.embeddable.WeekDays;
 import ru.rstdv.bmtf.entity.embeddable.WorkingHours;
+import ru.rstdv.bmtf.mapper.RestaurantMapper;
 import ru.rstdv.bmtf.mapper.RestaurantScheduleMapper;
 import ru.rstdv.bmtf.mapper.RestaurantScheduleMapperImpl;
 

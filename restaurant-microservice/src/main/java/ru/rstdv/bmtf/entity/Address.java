@@ -19,7 +19,8 @@ public class Address {
     private Long id;
     private String city;
     private String street;
-    private String houseNumber;
+    @Column(name = "house_number")
+    private Short houseNumber;
 
     @OneToOne
     @JoinColumn(name = "restaurant_id")

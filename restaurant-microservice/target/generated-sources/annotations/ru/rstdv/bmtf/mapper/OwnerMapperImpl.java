@@ -8,7 +8,7 @@ import ru.rstdv.bmtf.entity.Owner;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T20:25:50+0300",
+    date = "2024-01-23T21:21:23+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,16 +21,16 @@ public class OwnerMapperImpl implements OwnerMapper {
         }
 
         String id = null;
+        String name = null;
         String email = null;
         String phone = null;
 
         if ( owner.getId() != null ) {
             id = String.valueOf( owner.getId() );
         }
+        name = owner.getName();
         email = owner.getEmail();
         phone = owner.getPhone();
-
-        String name = null;
 
         ReadOwnerDto readOwnerDto = new ReadOwnerDto( id, name, email, phone );
 
@@ -45,6 +45,7 @@ public class OwnerMapperImpl implements OwnerMapper {
 
         Owner.OwnerBuilder owner = Owner.builder();
 
+        owner.name( createUpdateOwnerDto.name() );
         owner.email( createUpdateOwnerDto.email() );
         owner.phone( createUpdateOwnerDto.phone() );
         owner.password( createUpdateOwnerDto.password() );

@@ -8,7 +8,7 @@ import ru.rstdv.bmtf.entity.Address;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T21:25:33+0300",
+    date = "2024-01-23T21:21:23+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,7 +30,9 @@ public class AddressMapperImpl implements AddressMapper {
         }
         city = address.getCity();
         street = address.getStreet();
-        houseNumber = address.getHouseNumber();
+        if ( address.getHouseNumber() != null ) {
+            houseNumber = String.valueOf( address.getHouseNumber() );
+        }
 
         ReadAddressDto readAddressDto = new ReadAddressDto( id, city, street, houseNumber );
 
@@ -47,7 +49,9 @@ public class AddressMapperImpl implements AddressMapper {
 
         address.city( createUpdateAddressDto.city() );
         address.street( createUpdateAddressDto.street() );
-        address.houseNumber( createUpdateAddressDto.houseNumber() );
+        if ( createUpdateAddressDto.houseNumber() != null ) {
+            address.houseNumber( Short.parseShort( createUpdateAddressDto.houseNumber() ) );
+        }
 
         return address.build();
     }
@@ -65,7 +69,7 @@ public class AddressMapperImpl implements AddressMapper {
             address.setStreet( createUpdateAddressDto.street() );
         }
         if ( createUpdateAddressDto.houseNumber() != null ) {
-            address.setHouseNumber( createUpdateAddressDto.houseNumber() );
+            address.setHouseNumber( Short.parseShort( createUpdateAddressDto.houseNumber() ) );
         }
 
         return address;

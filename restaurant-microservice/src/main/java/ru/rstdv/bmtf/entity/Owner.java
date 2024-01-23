@@ -19,6 +19,7 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false, unique = true)
@@ -27,8 +28,13 @@ public class Owner {
 
     @Builder.Default
     @ToString.Exclude
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST})
     private List<Restaurant> restaurants = new ArrayList<>();
+
+    public void addRestaurant(Restaurant restaurant) {
+        this.restaurants.add(restaurant);
+        restaurant.setOwner(this);
+    }
 
     @Override
     public boolean equals(Object o) {

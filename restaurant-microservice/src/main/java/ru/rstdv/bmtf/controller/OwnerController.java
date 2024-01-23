@@ -14,7 +14,7 @@ import ru.rstdv.bmtf.service.OwnerService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/owner")
+@RequestMapping("/api/v1/owners")
 public class OwnerController {
 
     private final OwnerService<ReadOwnerDto, CreateUpdateOwnerDto> ownerServiceImpl;

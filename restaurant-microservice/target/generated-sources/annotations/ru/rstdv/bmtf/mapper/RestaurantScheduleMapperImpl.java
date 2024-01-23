@@ -11,7 +11,7 @@ import ru.rstdv.bmtf.entity.embeddable.WorkingHours;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T21:28:13+0300",
+    date = "2024-01-23T21:21:23+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component

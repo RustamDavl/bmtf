@@ -62,10 +62,9 @@ create table contact
 --changeset rudv:6
 create table menu_category
 (
-    id      bigserial primary key,
-    name    varchar(64) not null unique,
-    restaurant_id bigint      not null references menu (id) on delete cascade
-
+    id   bigserial primary key,
+    name varchar(64) not null unique,
+    restaurant_id bigint not null references restaurant(id)
 );
 
 --changeset rudv:7
@@ -77,7 +76,7 @@ create table position
     image       bytea,
     description varchar(256),
     weigh       int          not null,
-    category_id bigint       not null references category (id)
+    category_id bigint       not null references menu_category (id)
 );
 
 -- add review later

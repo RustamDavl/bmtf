@@ -1,6 +1,7 @@
 package ru.rstdv.bmtf.mapper;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -8,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateAddressDto;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateContactDto;
-import ru.rstdv.bmtf.dto.createupdate.CreateUpdateMenuCategoryDto;
 import ru.rstdv.bmtf.dto.createupdate.CreateUpdateRestaurantDto;
-import ru.rstdv.bmtf.dto.createupdate.CreateUpdateRestaurantScheduleDto;
 import ru.rstdv.bmtf.dto.read.ReadAddressDto;
 import ru.rstdv.bmtf.dto.read.ReadContactDto;
 import ru.rstdv.bmtf.dto.read.ReadMenuCategoryDto;
 import ru.rstdv.bmtf.dto.read.ReadOwnerDto;
+import ru.rstdv.bmtf.dto.read.ReadPositionDto;
 import ru.rstdv.bmtf.dto.read.ReadRestaurantDto;
 import ru.rstdv.bmtf.dto.read.ReadRestaurantScheduleDto;
 import ru.rstdv.bmtf.entity.Address;
@@ -23,21 +23,18 @@ import ru.rstdv.bmtf.entity.MenuCategory;
 import ru.rstdv.bmtf.entity.Restaurant;
 import ru.rstdv.bmtf.entity.RestaurantSchedule;
 import ru.rstdv.bmtf.entity.embeddable.PaymentMethod;
+import ru.rstdv.bmtf.entity.embeddable.RestaurantStatus;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T22:05:50+0300",
+    date = "2024-01-23T21:21:23+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
 public class RestaurantMapperImpl implements RestaurantMapper {
 
     @Autowired
-    private RestaurantScheduleMapperImpl restaurantScheduleMapperImpl;
-    @Autowired
-    private OwnerMapperImpl ownerMapperImpl;
-    @Autowired
-    private MenuCategoryMapperImpl menuCategoryMapperImpl;
+    private OwnerMapper ownerMapper;
 
     @Override
     public Restaurant toRestaurant(CreateUpdateRestaurantDto createUpdateRestaurantDto) {
@@ -53,21 +50,21 @@ public class RestaurantMapperImpl implements RestaurantMapper {
         catch ( IOException e ) {
             throw new RuntimeException( e );
         }
-        restaurant.restaurantSchedules( createUpdateRestaurantScheduleDtoListToRestaurantScheduleList( createUpdateRestaurantDto.createUpdateRestaurantScheduleDtos() ) );
         restaurant.address( createUpdateAddressDtoToAddress( createUpdateRestaurantDto.createUpdateAddressDto() ) );
         try {
-            restaurant.owner( ownerWithId( createUpdateRestaurantDto.ownerId() ) );
+            restaurant.owner( createOwner( createUpdateRestaurantDto.ownerId() ) );
         }
         catch ( IOException e ) {
             throw new RuntimeException( e );
         }
-        restaurant.categories( createUpdateMenuCategoryDtoListToMenuCategoryList( createUpdateRestaurantDto.createUpdateMenuCategoryDtos() ) );
         restaurant.contact( createUpdateContactDtoToContact( createUpdateRestaurantDto.createUpdateContactDto() ) );
         restaurant.email( createUpdateRestaurantDto.email() );
         restaurant.name( createUpdateRestaurantDto.name() );
         if ( createUpdateRestaurantDto.paymentMethod() != null ) {
             restaurant.paymentMethod( Enum.valueOf( PaymentMethod.class, createUpdateRestaurantDto.paymentMethod() ) );
         }
+
+        restaurant.status( RestaurantStatus.UNCONFIRMED );
 
         return restaurant.build();
     }
@@ -91,7 +88,7 @@ public class RestaurantMapperImpl implements RestaurantMapper {
 
         restaurantSchedules = restaurantScheduleListToReadRestaurantScheduleDtoList( restaurant.getRestaurantSchedules() );
         readAddressDto = addressToReadAddressDto( restaurant.getAddress() );
-        readOwnerDto = ownerMapperImpl.toReadOwnerDto( restaurant.getOwner() );
+        readOwnerDto = ownerMapper.toReadOwnerDto( restaurant.getOwner() );
         readMenuCategoryDtos = menuCategoryListToReadMenuCategoryDtoList( restaurant.getCategories() );
         readContactDto = contactToReadContactDto( restaurant.getContact() );
         if ( restaurant.getId() != null ) {
@@ -111,19 +108,6 @@ public class RestaurantMapperImpl implements RestaurantMapper {
         return readRestaurantDto;
     }
 
-    protected List<RestaurantSchedule> createUpdateRestaurantScheduleDtoListToRestaurantScheduleList(List<CreateUpdateRestaurantScheduleDto> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<RestaurantSchedule> list1 = new ArrayList<RestaurantSchedule>( list.size() );
-        for ( CreateUpdateRestaurantScheduleDto createUpdateRestaurantScheduleDto : list ) {
-            list1.add( restaurantScheduleMapperImpl.toRestaurantSchedule( createUpdateRestaurantScheduleDto ) );
-        }
-
-        return list1;
-    }
-
     protected Address createUpdateAddressDtoToAddress(CreateUpdateAddressDto createUpdateAddressDto) {
         if ( createUpdateAddressDto == null ) {
             return null;
@@ -133,22 +117,11 @@ public class RestaurantMapperImpl implements RestaurantMapper {
 
         address.city( createUpdateAddressDto.city() );
         address.street( createUpdateAddressDto.street() );
-        address.houseNumber( createUpdateAddressDto.houseNumber() );
+        if ( createUpdateAddressDto.houseNumber() != null ) {
+            address.houseNumber( Short.parseShort( createUpdateAddressDto.houseNumber() ) );
+        }
 
         return address.build();
-    }
-
-    protected List<MenuCategory> createUpdateMenuCategoryDtoListToMenuCategoryList(List<CreateUpdateMenuCategoryDto> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<MenuCategory> list1 = new ArrayList<MenuCategory>( list.size() );
-        for ( CreateUpdateMenuCategoryDto createUpdateMenuCategoryDto : list ) {
-            list1.add( menuCategoryMapperImpl.toMenuCategory( createUpdateMenuCategoryDto ) );
-        }
-
-        return list1;
     }
 
     protected Contact createUpdateContactDtoToContact(CreateUpdateContactDto createUpdateContactDto) {
@@ -165,6 +138,32 @@ public class RestaurantMapperImpl implements RestaurantMapper {
         return contact.build();
     }
 
+    protected ReadRestaurantScheduleDto restaurantScheduleToReadRestaurantScheduleDto(RestaurantSchedule restaurantSchedule) {
+        if ( restaurantSchedule == null ) {
+            return null;
+        }
+
+        String id = null;
+
+        if ( restaurantSchedule.getId() != null ) {
+            id = String.valueOf( restaurantSchedule.getId() );
+        }
+
+        boolean mon = false;
+        boolean tue = false;
+        boolean wed = false;
+        boolean thur = false;
+        boolean fri = false;
+        boolean sat = false;
+        boolean sun = false;
+        LocalTime start = null;
+        LocalTime end = null;
+
+        ReadRestaurantScheduleDto readRestaurantScheduleDto = new ReadRestaurantScheduleDto( id, mon, tue, wed, thur, fri, sat, sun, start, end );
+
+        return readRestaurantScheduleDto;
+    }
+
     protected List<ReadRestaurantScheduleDto> restaurantScheduleListToReadRestaurantScheduleDtoList(List<RestaurantSchedule> list) {
         if ( list == null ) {
             return null;
@@ -172,7 +171,7 @@ public class RestaurantMapperImpl implements RestaurantMapper {
 
         List<ReadRestaurantScheduleDto> list1 = new ArrayList<ReadRestaurantScheduleDto>( list.size() );
         for ( RestaurantSchedule restaurantSchedule : list ) {
-            list1.add( restaurantScheduleMapperImpl.toReadRestaurantScheduleDto( restaurantSchedule ) );
+            list1.add( restaurantScheduleToReadRestaurantScheduleDto( restaurantSchedule ) );
         }
 
         return list1;
@@ -193,11 +192,33 @@ public class RestaurantMapperImpl implements RestaurantMapper {
         }
         city = address.getCity();
         street = address.getStreet();
-        houseNumber = address.getHouseNumber();
+        if ( address.getHouseNumber() != null ) {
+            houseNumber = String.valueOf( address.getHouseNumber() );
+        }
 
         ReadAddressDto readAddressDto = new ReadAddressDto( id, city, street, houseNumber );
 
         return readAddressDto;
+    }
+
+    protected ReadMenuCategoryDto menuCategoryToReadMenuCategoryDto(MenuCategory menuCategory) {
+        if ( menuCategory == null ) {
+            return null;
+        }
+
+        String id = null;
+        String name = null;
+
+        if ( menuCategory.getId() != null ) {
+            id = String.valueOf( menuCategory.getId() );
+        }
+        name = menuCategory.getName();
+
+        List<ReadPositionDto> readPositionDtos = null;
+
+        ReadMenuCategoryDto readMenuCategoryDto = new ReadMenuCategoryDto( id, name, readPositionDtos );
+
+        return readMenuCategoryDto;
     }
 
     protected List<ReadMenuCategoryDto> menuCategoryListToReadMenuCategoryDtoList(List<MenuCategory> list) {
@@ -207,7 +228,7 @@ public class RestaurantMapperImpl implements RestaurantMapper {
 
         List<ReadMenuCategoryDto> list1 = new ArrayList<ReadMenuCategoryDto>( list.size() );
         for ( MenuCategory menuCategory : list ) {
-            list1.add( menuCategoryMapperImpl.toReadMenuCategoryDto( menuCategory ) );
+            list1.add( menuCategoryToReadMenuCategoryDto( menuCategory ) );
         }
 
         return list1;

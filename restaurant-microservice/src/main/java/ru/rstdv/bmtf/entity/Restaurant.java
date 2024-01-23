@@ -1,6 +1,7 @@
 package ru.rstdv.bmtf.entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.Category;
 import lombok.*;
 import ru.rstdv.bmtf.entity.embeddable.PaymentMethod;
 import ru.rstdv.bmtf.entity.embeddable.RestaurantStatus;
@@ -31,10 +32,10 @@ public class Restaurant {
 
     @Builder.Default
     @ToString.Exclude
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = {CascadeType.PERSIST})
     private List<RestaurantSchedule> restaurantSchedules = new ArrayList<>();
 
-    @OneToOne(mappedBy = "restaurant")
+    @OneToOne(mappedBy = "restaurant", cascade = {CascadeType.PERSIST})
     private Address address;
 
     @Enumerated(EnumType.STRING)
@@ -44,18 +45,33 @@ public class Restaurant {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "restaurant", cascade = {CascadeType.PERSIST})
     @Builder.Default
     @ToString.Exclude
     private List<MenuCategory> categories = new ArrayList<>();
 
-    @OneToOne(mappedBy = "restaurant")
+    @OneToOne(mappedBy = "restaurant", cascade = {CascadeType.PERSIST})
     private Contact contact;
 
-    @Embedded
     @Enumerated(EnumType.STRING)
     private RestaurantStatus status;
 
+    public void addAllCategories(List<MenuCategory> categories) {
+        this.categories.addAll(categories);
+        categories.forEach(
+                menuCategory -> menuCategory.setRestaurant(this)
+        );
+    }
+
+    public void addAddress(Address address) {
+        this.address = address;
+        address.setRestaurant(this);
+    }
+
+    public void addContact(Contact contact) {
+        this.contact = contact;
+        contact.setRestaurant(this);
+    }
 
     // TODO: 13.01.2024 add later  
 //    @OneToMany(mappedBy = "restaurant")

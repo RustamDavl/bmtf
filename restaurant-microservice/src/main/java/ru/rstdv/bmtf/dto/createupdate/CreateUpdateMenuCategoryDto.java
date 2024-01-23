@@ -4,6 +4,7 @@ import java.util.List;
 
 public record CreateUpdateMenuCategoryDto(
         String name,
-        List<CreateUpdatePositionDto> createUpdatePositionDto
+
+        String restaurantId
 ) {
 }

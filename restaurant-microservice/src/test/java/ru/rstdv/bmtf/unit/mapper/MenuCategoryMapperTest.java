@@ -1,5 +1,6 @@
 package ru.rstdv.bmtf.unit.mapper;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,8 @@ import ru.rstdv.bmtf.mapper.PositionMapperImpl;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest(classes = {MenuCategoryMapperImpl.class, PositionMapperImpl.class})
 public class MenuCategoryMapperTest {
@@ -25,27 +28,20 @@ public class MenuCategoryMapperTest {
 
     @Test
     void toMenuCategory() {
-        var givenDto = new CreateUpdateMenuCategoryDto(
+        var createUpdateMenuCategoryDto = new CreateUpdateMenuCategoryDto(
                 "hot",
-                List.of(new CreateUpdatePositionDto(
-                                "soup",
-                                new MockMultipartFile("test", new byte[]{1, 42, 53, 24}),
-                                "chilly soup",
-                                "1000"
-                        ),
-                        new CreateUpdatePositionDto(
-                                "coffee",
-                                new MockMultipartFile("test", new byte[]{1, 42, 53, 24}),
-                                "americano",
-                                "400"
-                        )
-
-                )
+                "1"
         );
 
-        var actualDto = menuCategoryMapper.toMenuCategory(givenDto);
+        var menuCategory = MenuCategory.builder()
+                .id(1L)
+                .build();
 
-        System.out.println(actualDto.getPositions());
+        var actualMenuCategoryDto = menuCategoryMapper.toMenuCategory(createUpdateMenuCategoryDto);
+        assertThat(actualMenuCategoryDto.getName()).isEqualTo(createUpdateMenuCategoryDto.name());
+
+        assertThat(actualMenuCategoryDto.getRestaurant().getId()).isEqualTo(menuCategory.getId());
+
 
     }
 
@@ -69,6 +65,8 @@ public class MenuCategoryMapperTest {
 
         var actualResult = menuCategoryMapper.toReadMenuCategoryDto(menuCategory);
 
-        System.out.println(actualResult);
+        assertThat(actualResult.name()).isEqualTo(menuCategory.getName());
+        assertThat(actualResult.readPositionDtos()).hasSize(2);
+        assertThat(actualResult.readPositionDtos().get(0).name()).isEqualTo(menuCategory.getPositions().get(0).getName());
     }
 }

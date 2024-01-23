@@ -29,14 +29,16 @@ public class MenuCategory {
     private Restaurant restaurant;
 
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST})
     @ToString.Exclude
     @Builder.Default
     private List<Position> positions = new ArrayList<>();
 
-    public void addPosition(Position position) {
-        this.positions.add(position);
-        position.setCategory(this);
+    public void addAllPositions(List<Position> positions) {
+        this.positions.addAll(positions);
+        positions.forEach(
+                position -> position.setCategory(this)
+        );
     }
 
     @Override
